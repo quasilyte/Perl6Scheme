@@ -142,6 +142,7 @@ sub eval_node(Pair $node) {
     }
 }
 
+#FIXME: dont work well with lambdas 
 sub eval_fncall($name, @args) {
     my $builtin_proc = %builtins{$name};
 
