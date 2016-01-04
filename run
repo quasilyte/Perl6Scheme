@@ -1,0 +1,3 @@
+#!/bin/bash
+
+perl6 -I . $1.pm6

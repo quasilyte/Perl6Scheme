@@ -1,0 +1,13 @@
+## YASI/P6 -- Yet another Scheme implementation / Written in perl6 
+
+| Feature                 | Support     |
+|-------------------------+-------------|
+| TCO                     | No, planned |
+| Closure lexical scoping | No, planned |
+| Continuations           | No          |
+| Lambdas                 | Yes         |
+| First class functions   | Yes         |
+| Delayed evaluations     | No, planned |
+| Macro                   | No          |
+| I/O                     | No          |
+
