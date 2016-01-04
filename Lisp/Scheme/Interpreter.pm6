@@ -17,7 +17,7 @@ sub apply_op(@args, &op) {
 }
 
 # There is no any mistakes, gt & lt are shuffled on purpose (see apply_op)
-sub op_eq(@args) { apply_op(@args, &num_eq) }
+sub op_eq(@args) { !apply_op(@args, &num_neq) }
 sub op_gt(@args) { apply_op(@args, &num_lt) }
 sub op_gte(@args) { apply_op(@args, &num_lte) }
 sub op_lt(@args) { apply_op(@args, &num_gt) }
@@ -95,20 +95,25 @@ my %builtins = Map.new(
     '<=', &op_lte
 );
 
-method run(Str $program) {
-    my @ast = Lisp::Core::Grammar.parse(
-	$program,
+sub tokenize(Str $input) {
+    Lisp::Core::Grammar.parse(
+	$input,
     	:actions(Lisp::Core::Tokenizer.new())
-    ).made;
+    ).made
+}
 
-    for @ast -> $node {
+method run(Str $program) {
+    for tokenize($program) -> $node {
 	eval_node($node);
     }
 }
 
+method eval(Str $program) {
+    eval_node(tokenize($program)[0])
+}
+
 #TODO: implement TCO
 sub apply_proc($closure, @params) {
-    say [@params, $closure];
     $env.push_frame($closure.params, @params.map(&eval_node));
     my $result;
     
