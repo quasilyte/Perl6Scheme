@@ -2,9 +2,10 @@ use v6;
 
 unit grammar Lisp::Core::Grammar;
 
-token TOP { \s* [<any>]* % \s* }
+token TOP { \s* [<any>]* % \s* \s* }
 
 proto token any {*}
+token any:sym<comment> { ';'+ \N* }
 token any:sym<atom> { <atom> }
 token any:sym<list> { <list> }
 
@@ -16,7 +17,7 @@ token atom:sym<number> {
 token atom:sym<string> { '"' ~ '"' <chars> }
 token atom:sym<true> { 'true' }
 token atom:sym<false> { 'false' }
-token atom:sym<symbol> { [<-[\s()\[\]\"]>]+ } 
+token atom:sym<symbol> { [<-[\s()\[\]\;"]>]+ } 
 
 # List 
 proto rule list {*}

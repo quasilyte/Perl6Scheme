@@ -3,8 +3,11 @@ use v6;
 unit class Lisp::Core::Tokenizer;
 
 method TOP($/) {
-    make [$/.values.map(*.made)]
+    # Construct all tokens and filter out comments with `grep`
+    make [grep *.defined, $/.values.map(*.made)]
 }
+
+method any:sym<comment>($/) {}
 
 method any:sym<atom>($/) {
     make $<atom>.made
