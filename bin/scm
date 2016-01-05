@@ -1,0 +1,3 @@
+#!/bin/bash
+
+perl6 -I . bin/perl6/scm.pm6 $1

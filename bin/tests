@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for t in t/*; do
+  echo "-- RUNNING $t --"
+  perl6 -I . $t
+done
