@@ -2,5 +2,5 @@
 
 for t in t/*; do
   echo "-- RUNNING $t --"
-  perl6 -I . $t
+  perl6 -I ./src $t
 done

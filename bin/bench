@@ -1,6 +1,6 @@
 #!/bin/bash
 
-runtime=$(perl6 -I . bin/perl6/bench.pm6)
+runtime=$(perl6 -I ./src bin/perl6/bench.pm6)
 prev_best=$(cat stats/best_time.txt)
 
 echo "best time: $runtime"
