@@ -49,6 +49,10 @@ sub op_sub(@operands) { [-] @operands.map(&eval_node) }
 sub op_mul(@operands) { [*] @operands.map(&eval_node) }
 sub op_div(@operands) { [/] @operands.map(&eval_node) }
 
+sub lambda_node(@params, $exprs) {
+    (list => [sym => 'lambda', list => @params, $exprs])
+}
+
 my %builtins = Map.new(
     # Conditionals
     'and', &proc_and,
@@ -59,7 +63,13 @@ my %builtins = Map.new(
 	die 'cant quote yet';
     },
     'define', -> @args {
-	$env.put((@args[0].value => eval_node(@args[1])));
+	if 'list' eq @args[0].key {
+	    my $lambda_node = lambda_node(@args[0].value[1..*], @args[1]);
+	    $env.put((@args[0].value[0].value => eval_node($lambda_node)));
+	} else {
+	    $env.put((@args[0].value => eval_node(@args[1])));
+	}
+	
     },
     'lambda', -> @args {
 	Lisp::Scheme::Closure.new(

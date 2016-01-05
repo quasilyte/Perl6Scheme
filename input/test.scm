@@ -1,6 +1,4 @@
-(define fn
-  (lambda ()
-    ;; code with comment
-    (display 123)))
+(define (fn a)
+  (display a))
 
-(fn)
+(fn 40)
