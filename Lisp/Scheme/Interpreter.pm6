@@ -153,7 +153,7 @@ sub eval_fncall($name, @args) {
     }
 }
 
-sub eval_list(Seq $elts) {
+sub eval_list(Array $elts) {
     if 'list' eq $elts[0].key {
 	return apply_proc(eval_node($elts[0]), ($elts[1..*]));
     }

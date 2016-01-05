@@ -3,7 +3,7 @@ use v6;
 unit class Lisp::Core::Tokenizer;
 
 method TOP($/) {
-    make $/.values.map(*.made)
+    make [$/.values.map(*.made)]
 }
 
 method any:sym<atom>($/) {
@@ -19,7 +19,7 @@ method chars($/) {
 }
 
 method elts($/) {
-    make $<any>.map(*.made)
+    make [$<any>.map(*.made)]
 }
 
 ## Atom

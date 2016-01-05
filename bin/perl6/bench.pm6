@@ -46,4 +46,4 @@ for 0..9 {
     $min_elapsed = min(now - $elapsed, $min_elapsed);
 }
 
-say "best time: $min_elapsed";
+say $min_elapsed;

@@ -1,3 +1,16 @@
 #!/bin/bash
 
-perl6 -I . bin/perl6/bench.pm6
+runtime=$(perl6 -I . bin/perl6/bench.pm6)
+prev_best=$(cat stats/best_time.txt)
+
+echo "best time: $runtime"
+echo "prev best: $prev_best"
+
+if [[ "$runtime" < "$prev_best" ]]; then
+    echo "updating result..."
+    echo $runtime > stats/best_time.txt
+else
+    perl -e "print 'slower by: ' . ($runtime - $prev_best) . \"\\n\""
+fi
+
+
