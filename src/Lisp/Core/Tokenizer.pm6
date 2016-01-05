@@ -22,7 +22,7 @@ method chars($/) {
 }
 
 method elts($/) {
-    make [$<any>.map(*.made)]
+    make [grep *.defined, $<any>.map(*.made)]
 }
 
 ## Atom
