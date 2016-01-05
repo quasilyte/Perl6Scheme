@@ -5,12 +5,12 @@ use Test;
 my $interpreter = Lisp::Scheme::Interpreter.new;
 
 my $code = q:to/LISP/;
-  (define identity (lambda (x) x))
-  (define naive-fib (lambda (x)
+  (define (identity x) x)
+  (define (naive-fib x)
     (if (> x 2)
         (+ (naive-fib (- x 1))
 	   (naive-fib (- x 2)))
-        1)))
+        1))
 LISP
 
 $interpreter.run($code);

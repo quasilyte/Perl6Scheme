@@ -2,10 +2,10 @@ use v6;
 
 unit class Lisp::Scheme::Interpreter;
 
-use Lisp::Scheme::Grammar;
-use Lisp::Scheme::Tokenizer;
+use Lisp::Scheme::utils;
 use Lisp::Scheme::Environment;
 use Lisp::Scheme::Closure;
+use Lisp::Scheme::Preprocessor;
 use FnOperators::numeric;
 
 sub apply_op(@args, &op) {
@@ -63,13 +63,7 @@ my %builtins = Map.new(
 	die 'cant quote yet';
     },
     'define', -> @args {
-	if 'list' eq @args[0].key {
-	    my $lambda_node = lambda_node(@args[0].value[1..*], @args[1]);
-	    $env.put((@args[0].value[0].value => eval_node($lambda_node)));
-	} else {
-	    $env.put((@args[0].value => eval_node(@args[1])));
-	}
-	
+	$env.put((@args[0].value => eval_node(@args[1])));
     },
     'lambda', -> @args {
 	Lisp::Scheme::Closure.new(
@@ -105,21 +99,15 @@ my %builtins = Map.new(
     '<=', &op_lte
 );
 
-sub tokenize(Str $input) {
-    Lisp::Scheme::Grammar.parse(
-	$input,
-    	:actions(Lisp::Scheme::Tokenizer.new())
-    ).made
-}
-
 method run(Str $program) {
-    for tokenize($program) -> $node {
+    my @nodes = Lisp::Scheme::Preprocessor.new.run(tokenize_scheme($program));
+    for @nodes -> $node {
 	eval_node($node);
     }
 }
 
 method eval(Str $program) {
-    eval_node(tokenize($program)[0])
+    eval_node(Lisp::Scheme::Preprocessor.new.run(tokenize_scheme($program))[0])
 }
 
 #TODO: implement TCO

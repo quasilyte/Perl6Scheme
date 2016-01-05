@@ -1,4 +1,5 @@
-(define (fn a)
-  (display a))
+(define x (let ([x 10]) x))
 
-(fn 40)
+;; ((lambda (x)
+;;   ((lambda (y)
+;;      (+ x y)) 2)) 10)
