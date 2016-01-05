@@ -2,8 +2,8 @@ use v6;
 
 unit class Lisp::Scheme::Interpreter;
 
-use Lisp::Core::Grammar;
-use Lisp::Core::Tokenizer;
+use Lisp::Scheme::Grammar;
+use Lisp::Scheme::Tokenizer;
 use Lisp::Scheme::Environment;
 use Lisp::Scheme::Closure;
 use FnOperators::numeric;
@@ -96,9 +96,9 @@ my %builtins = Map.new(
 );
 
 sub tokenize(Str $input) {
-    Lisp::Core::Grammar.parse(
+    Lisp::Scheme::Grammar.parse(
 	$input,
-    	:actions(Lisp::Core::Tokenizer.new())
+    	:actions(Lisp::Scheme::Tokenizer.new())
     ).made
 }
 

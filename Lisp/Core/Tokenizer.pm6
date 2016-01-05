@@ -44,6 +44,9 @@ method atom:sym<symbol>($/) {
 }
 
 ## List
-method list($/) {
+method make_list($/) {
     make ('list' => $<elts>.made)
 }
+
+method list:sym<parens>($/) { self.make_list($/) }
+
