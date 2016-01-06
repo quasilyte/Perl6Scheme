@@ -10,8 +10,10 @@ use Lisp::Scheme::Interpreter;
 
     loop {
 	my $input = prompt('>> ');
-	last if $input eq ':q';
-	say $interpreter.eval($input);
+	if $input {
+	    last if $input eq ':q';
+	    say $interpreter.eval($input);
+	}
     }
 })();
 

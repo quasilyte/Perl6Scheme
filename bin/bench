@@ -10,7 +10,7 @@ if [[ "$runtime" < "$prev_best" ]]; then
     echo "updating result..."
     echo $runtime > stats/best_time.txt
 else
-    perl -e "print 'slower by: ' . ($runtime - $prev_best) . \"\\n\""
+    perl -e "print'slower by: '.($runtime-$prev_best).'(+'.(int($runtime/$prev_best*100)-100).'%)'.\"\\n\""
 fi
 
 
